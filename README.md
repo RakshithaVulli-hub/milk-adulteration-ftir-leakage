@@ -1,82 +1,105 @@
 # Leakage-Aware Detection of Milk Adulteration from FTIR Spectra
 
-Reproducibility materials for the paper **“Leakage-Aware Detection of Milk Adulteration from Infrared Spectra with Confidence-Based Flagging.”**
+Reproducibility materials for **“Leakage-Aware Detection of Milk Adulteration from Infrared Spectra with Confidence-Based Flagging.”**
 
-The project compares random and measurement-date-grouped cross-validation on a public subset of FTIR milk spectra, tests spectral preprocessing, and evaluates confidence-based flagging for samples that should be referred for laboratory testing.
+This project investigates milk adulteration classification using Fourier-transform infrared (FTIR) spectra. It compares random and measurement-date-grouped cross-validation, evaluates spectral preprocessing, and explores confidence-based flagging to identify predictions that should be referred for confirmatory laboratory testing.
 
 ![System architecture](figures/system_architecture.png)
 
-## Repository structure
+## Repository Structure
 
-- `code/` — experiment scripts.
-- `figures/` — paper figures used independently of individual runs.
-- `results/protocols_seed42/`, `results/protocols_seed1/`, `results/protocols_seed2/` — outputs from the main protocol script for seeds 42, 1, and 2.
-- `results/confidence_grouped/` — outputs from the earlier grouped-CV confidence experiment.
-- `results/extra_experiments/` — available per-seed and summary outputs for the leakage and preprocessing experiments.
-- `13040_2019_200_MOESM2_ESM.csv` — included copy of the public supplementary dataset.
-- `DATA_SOURCE.txt` — dataset provenance and licensing notes.
-- `research_log.md` — experiment history, verification notes, and remaining work.
+```text
+milk-adulteration-research/
+├── README.md
+├── .gitignore
+├── requirements.txt
+├── DATA_SOURCE.txt
+├── 13040_2019_200_MOESM2_ESM.csv
+├── code/
+│   ├── milk_adulteration_ml.py
+│   ├── milk_confidence_grouped.py
+│   └── milk_extra_experiments.py
+├── figures/
+│   └── figures used in the paper
+└── results/
+    ├── protocols_seed42/
+    ├── protocols_seed1/
+    ├── protocols_seed2/
+    ├── confidence_grouped/
+    └── extra_experiments/
+```
+
+The `results/` directories contain experiment outputs, summaries, configuration files, logs, and diagnostic figures associated with the corresponding runs.
 
 ## Dataset
 
-The included CSV is the supplementary dataset associated with H. A. Neto et al., “On the utilization of deep and ensemble learning to detect milk adulteration,” *BioData Mining*, 2019, DOI: [10.1186/s13040-019-0200-5](https://doi.org/10.1186/s13040-019-0200-5).
+The study uses the supplementary dataset `13040_2019_200_MOESM2_ESM.csv`, associated with:
 
-The file contains 969 spectra, 518 spectral feature columns, six classes, and measurement-date metadata. Only spectral columns are model features. Metadata and laboratory composition columns are excluded from the feature matrix. See `DATA_SOURCE.txt` for attribution and licence details.
+H. A. Neto et al., “On the utilization of deep and ensemble learning to detect milk adulteration,” *BioData Mining* (2019). [https://doi.org/10.1186/s13040-019-0200-5](https://doi.org/10.1186/s13040-019-0200-5)
 
-## Environment and setup
+The subset used in this study contains **969 spectra, 518 spectral features, six classes, and 259 distinct measurement dates**. Sample identifiers, date/time metadata, and laboratory composition fields are excluded from the model feature matrix. Measurement date is used to group samples during evaluation, not as a predictive feature.
 
-The original run log records Python 3.14.2, scikit-learn 1.9.1, NumPy 2.5.4, pandas 3.1.0, Windows 11, an Intel Core i5-1340P, and 16 GB RAM. No GPU was used.
+See [`DATA_SOURCE.txt`](DATA_SOURCE.txt) for dataset provenance, attribution, and licensing information.
 
-Create and activate a virtual environment, then install dependencies:
+## Environment and Installation
 
-```bash
-python -m venv .venv
-```
+The recorded experimental environment was Python 3.14.2, scikit-learn 1.9.1, NumPy 2.5.4, and pandas 3.1.0 on Windows 11, using an Intel Core i5-1340P and 16 GB RAM. No GPU was used.
 
-Windows PowerShell:
+Create and activate a virtual environment from the repository root.
+
+**Windows PowerShell**
 
 ```powershell
+python -m venv .venv
 .venv\Scripts\Activate.ps1
-```
-
-macOS/Linux:
-
-```bash
-source .venv/bin/activate
-```
-
-Install packages:
-
-```bash
 python -m pip install -r requirements.txt
 ```
 
-## Reproducing experiments
+**macOS/Linux**
 
-Run commands from the repository root.
+```bash
+python -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+```
 
-| Experiment | Command | Related paper content |
+## Reproducing the Experiments
+
+Run the commands from the repository root.
+
+| Experiment | Command | Related manuscript content |
 |---|---|---|
-| Main protocols, seed 42 | `python code/milk_adulteration_ml.py --csv 13040_2019_200_MOESM2_ESM.csv --seed 42 --out results/protocols_seed42` | Table X; seed-42 diagnostics |
-| Main protocols, seed 1 | `python code/milk_adulteration_ml.py --csv 13040_2019_200_MOESM2_ESM.csv --seed 1 --out results/protocols_seed1` | Table X |
-| Main protocols, seed 2 | `python code/milk_adulteration_ml.py --csv 13040_2019_200_MOESM2_ESM.csv --seed 2 --out results/protocols_seed2` | Table X |
-| Earlier grouped confidence experiment | `python code/milk_confidence_grouped.py --csv 13040_2019_200_MOESM2_ESM.csv --out results/confidence_grouped` | Earlier confidence experiment / Fig. 4 |
-| Extra experiments | `python code/milk_extra_experiments.py --csv 13040_2019_200_MOESM2_ESM.csv --seeds 42 1 2 --out results/extra_experiments` | Tables IX, XI, XII and related figures |
+| Main protocols, seed 42 | `python code/milk_adulteration_ml.py --csv 13040_2019_200_MOESM2_ESM.csv --seed 42 --out results/protocols_seed42` | Main protocol results and seed-42 diagnostics |
+| Main protocols, seed 1 | `python code/milk_adulteration_ml.py --csv 13040_2019_200_MOESM2_ESM.csv --seed 1 --out results/protocols_seed1` | Main protocol results |
+| Main protocols, seed 2 | `python code/milk_adulteration_ml.py --csv 13040_2019_200_MOESM2_ESM.csv --seed 2 --out results/protocols_seed2` | Main protocol results |
+| Earlier grouped-CV confidence experiment | `python code/milk_confidence_grouped.py --csv 13040_2019_200_MOESM2_ESM.csv --out results/confidence_grouped` | Earlier confidence experiment |
+| Additional experiments | `python code/milk_extra_experiments.py --csv 13040_2019_200_MOESM2_ESM.csv --seeds 42 1 2 --out results/extra_experiments` | Leakage comparison, preprocessing, and confidence-based flagging |
 
-The commands above describe the scripts' intended outputs. **The original Exp 1–3 outputs (`exp1_per_seed.csv`, `exp1_summary.csv`, `exp2_per_seed.csv`, `exp2_summary.csv`, `exp3_per_seed.csv`, `exp3_summary.csv`) and `run_log_extra.txt` are now included in `results/extra_experiments/`. The summaries support the rounded values reported in Tables IX–XII. This is a file-level consistency check, not a fresh end-to-end rerun; rerun the script in the intended environment before claiming computational reproducibility.
+The experiment outputs include per-seed and summary CSV files, including `exp1_per_seed.csv`, `exp1_summary.csv`, `exp2_per_seed.csv`, `exp2_summary.csv`, `exp3_per_seed.csv`, and `exp3_summary.csv`, as well as `run_log_extra.txt`.
 
-## Interpreting results
+## Main Findings
 
-- The study compares random cross-validation with cross-validation grouped by measurement date. The reported date-overlap share is 86.3% for random five-fold CV and 0% for date-grouped CV.
-- Date and batch coincide in this dataset, so the experiment cannot isolate a date effect from a batch effect.
-- Random Forest is labelled “Proposed” in some legacy output files. This is a historical label, not a claim that Random Forest is the proposed contribution. The paper describes the contribution as a leakage-aware evaluation and confidence-based triage workflow.
-- The model and preprocessing comparisons are exploratory, and the data are a 969-sample subset from one source/instrument. Results should not be read as proof of generalisation to real market samples or other laboratories.
-- The workflow is a screening aid only. Uncertain samples should be sent for confirmatory chemical analysis; model output should not be the sole basis for regulatory or legal decisions.
+- Random five-fold cross-validation had **86.3%** test-sample overlap by measurement date with the training data, compared with **0%** for date-grouped cross-validation.
+- Under date-grouped evaluation, Random Forest multiclass macro-F1 increased from approximately **0.631** without preprocessing to **0.799** with first-derivative preprocessing.
+- Linear SVM with SNV preprocessing achieved a reported multiclass macro-F1 of **0.933**.
+- In the confidence-based flagging experiment, the multiclass target-95% strategy accepted approximately **80.4%** of samples at **0.953** accuracy on accepted predictions. The binary target-95% strategy accepted approximately **87.2%** at **0.947** accuracy on accepted predictions.
 
-## AI assistance
+These results describe the selected dataset and evaluation setup; they should not be interpreted as guaranteed performance on other datasets or in real-world settings.
 
-The paper and project documentation state that Claude (Anthropic) assisted with code writing/debugging, experiment suggestions, and drafting. The authors personally verify the final code, results, citations, and paper wording before submission.
+## Interpretation and Limitations
+
+Measurement date and batch are confounded in the available dataset, so their individual effects cannot be isolated. The study uses a 969-sample subset from one source and instrument; adulterated samples were prepared in a laboratory, and class sizes are imbalanced. Model and preprocessing comparisons are exploratory and use three random seeds.
+
+Confidence-based flagging was evaluated using Logistic Regression on unprocessed spectra. The workflow is intended as a **screening aid**, not a replacement for confirmatory chemical analysis. Uncertain samples should be referred for laboratory testing, and model output should not be the sole basis for regulatory or legal decisions.
+
+## AI Assistance
+
+The project documentation and manuscript disclose the use of Claude (Anthropic) for assistance with code writing and debugging, experiment suggestions, and drafting. The authors are responsible for reviewing the final implementation, results, citations, and manuscript.
 
 ## Citation
 
-Please cite Neto et al. (2019), DOI [10.1186/s13040-019-0200-5](https://doi.org/10.1186/s13040-019-0200-5), when reusing the dataset. Cite the paper and other sources listed in the manuscript as appropriate.
+When reusing the dataset, cite:
+
+Neto, H. A., et al. (2019). “On the utilization of deep and ensemble learning to detect milk adulteration.” *BioData Mining*. [https://doi.org/10.1186/s13040-019-0200-5](https://doi.org/10.1186/s13040-019-0200-5).
+
+Please also cite the research paper and any other sources listed in its references when reusing the methods or findings.
