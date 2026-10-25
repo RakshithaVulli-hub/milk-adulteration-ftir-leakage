@@ -1,0 +1,17 @@
+task,model,split,accuracy_mean,accuracy_std,macro_f1_mean,macro_f1_std,test_share_date_with_train_mean,test_share_date_with_train_std
+binary,lr,grouped,0.9364,0.0039,0.936,0.0039,0.0,0.0
+binary,lr,random,0.9783,0.001,0.9783,0.001,0.8634,0.0096
+binary,pca_lr,grouped,0.9405,0.0052,0.9403,0.0052,0.0,0.0
+binary,pca_lr,random,0.9701,0.0,0.9701,0.0,0.8634,0.0096
+binary,rf,grouped,0.7874,0.0081,0.7819,0.0081,0.0,0.0
+binary,rf,random,0.9336,0.0036,0.9336,0.0036,0.8634,0.0096
+binary,svm,grouped,0.9422,0.0018,0.9419,0.0018,0.0,0.0
+binary,svm,random,0.9818,0.0026,0.9818,0.0026,0.8634,0.0096
+multiclass,lr,grouped,0.8989,0.0055,0.8685,0.0071,0.0,0.0
+multiclass,lr,random,0.9291,0.0077,0.9055,0.0089,0.862,0.0021
+multiclass,pca_lr,grouped,0.8603,0.0086,0.8092,0.0083,0.0,0.0
+multiclass,pca_lr,random,0.902,0.0072,0.8638,0.0109,0.862,0.0021
+multiclass,rf,grouped,0.719,0.006,0.6314,0.0055,0.0,0.0
+multiclass,rf,random,0.8328,0.0063,0.7814,0.0079,0.862,0.0021
+multiclass,svm,grouped,0.9319,0.001,0.9146,0.0036,0.0,0.0
+multiclass,svm,random,0.9598,0.0027,0.9456,0.0029,0.862,0.0021

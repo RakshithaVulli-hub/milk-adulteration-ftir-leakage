@@ -1,0 +1,80 @@
+Run started: 2026-10-24 22:39:59
+Python 3.14.2 | sklearn 1.9.1 | numpy 2.5.4 | pandas 3.1.0 | Windows-11-10.0.26200-SP0
+Seeds = [42, 1, 2]
+
+=== Exp 1: random CV vs date-grouped CV (no preprocessing) ===
+  done multiclass / lr
+  done multiclass / svm
+  done multiclass / pca_lr
+  done multiclass / rf
+  done binary / lr
+  done binary / svm
+  done binary / pca_lr
+  done binary / rf
+      task  model   split  accuracy_mean  accuracy_std  macro_f1_mean  macro_f1_std  test_share_date_with_train_mean  test_share_date_with_train_std
+    binary     lr grouped         0.9364        0.0039         0.9360        0.0039                           0.0000                          0.0000
+    binary     lr  random         0.9783        0.0010         0.9783        0.0010                           0.8634                          0.0096
+    binary pca_lr grouped         0.9405        0.0052         0.9403        0.0052                           0.0000                          0.0000
+    binary pca_lr  random         0.9701        0.0000         0.9701        0.0000                           0.8634                          0.0096
+    binary     rf grouped         0.7874        0.0081         0.7819        0.0081                           0.0000                          0.0000
+    binary     rf  random         0.9336        0.0036         0.9336        0.0036                           0.8634                          0.0096
+    binary    svm grouped         0.9422        0.0018         0.9419        0.0018                           0.0000                          0.0000
+    binary    svm  random         0.9818        0.0026         0.9818        0.0026                           0.8634                          0.0096
+multiclass     lr grouped         0.8989        0.0055         0.8685        0.0071                           0.0000                          0.0000
+multiclass     lr  random         0.9291        0.0077         0.9055        0.0089                           0.8620                          0.0021
+multiclass pca_lr grouped         0.8603        0.0086         0.8092        0.0083                           0.0000                          0.0000
+multiclass pca_lr  random         0.9020        0.0072         0.8638        0.0109                           0.8620                          0.0021
+multiclass     rf grouped         0.7190        0.0060         0.6314        0.0055                           0.0000                          0.0000
+multiclass     rf  random         0.8328        0.0063         0.7814        0.0079                           0.8620                          0.0021
+multiclass    svm grouped         0.9319        0.0010         0.9146        0.0036                           0.0000                          0.0000
+multiclass    svm  random         0.9598        0.0027         0.9456        0.0029                           0.8620                          0.0021
+
+=== Exp 2: spectral preprocessing under date-grouped CV ===
+  done preprocessing = none
+  done preprocessing = snv
+  done preprocessing = deriv1
+  done preprocessing = snv+deriv1
+      task  model preprocessing  accuracy_mean  accuracy_std  macro_f1_mean  macro_f1_std
+    binary     lr        deriv1         0.9157        0.0047         0.9150        0.0048
+    binary     lr          none         0.9364        0.0039         0.9360        0.0039
+    binary     lr           snv         0.9556        0.0010         0.9555        0.0010
+    binary     lr    snv+deriv1         0.9556        0.0052         0.9555        0.0052
+    binary pca_lr        deriv1         0.8916        0.0037         0.8907        0.0038
+    binary pca_lr          none         0.9405        0.0052         0.9403        0.0052
+    binary pca_lr           snv         0.9498        0.0039         0.9496        0.0039
+    binary pca_lr    snv+deriv1         0.9267        0.0063         0.9265        0.0063
+    binary     rf        deriv1         0.9494        0.0047         0.9494        0.0047
+    binary     rf          none         0.7874        0.0081         0.7819        0.0081
+    binary     rf           snv         0.8641        0.0077         0.8633        0.0078
+    binary     rf    snv+deriv1         0.9584        0.0026         0.9583        0.0026
+    binary    svm        deriv1         0.9143        0.0031         0.9136        0.0031
+    binary    svm          none         0.9422        0.0018         0.9419        0.0018
+    binary    svm           snv         0.9553        0.0047         0.9552        0.0047
+    binary    svm    snv+deriv1         0.9556        0.0045         0.9555        0.0045
+multiclass     lr        deriv1         0.9095        0.0051         0.8831        0.0055
+multiclass     lr          none         0.8989        0.0055         0.8685        0.0071
+multiclass     lr           snv         0.9233        0.0021         0.9003        0.0045
+multiclass     lr    snv+deriv1         0.9188        0.0006         0.8914        0.0024
+multiclass pca_lr        deriv1         0.8751        0.0021         0.8442        0.0016
+multiclass pca_lr          none         0.8603        0.0086         0.8092        0.0083
+multiclass pca_lr           snv         0.8903        0.0032         0.8563        0.0038
+multiclass pca_lr    snv+deriv1         0.8707        0.0032         0.8348        0.0112
+multiclass     rf        deriv1         0.8631        0.0021         0.7995        0.0005
+multiclass     rf          none         0.7190        0.0060         0.6314        0.0055
+multiclass     rf           snv         0.7926        0.0074         0.7328        0.0114
+multiclass     rf    snv+deriv1         0.8645        0.0066         0.7955        0.0077
+multiclass    svm        deriv1         0.9226        0.0081         0.9028        0.0109
+multiclass    svm          none         0.9319        0.0010         0.9146        0.0036
+multiclass    svm           snv         0.9467        0.0076         0.9328        0.0094
+multiclass    svm    snv+deriv1         0.9343        0.0077         0.9142        0.0108
+
+=== Exp 3: threshold from pooled inner-CV confidences (Logistic Regression) ===
+  done multiclass
+  done binary
+      task          strategy  overall_acc_mean  overall_acc_std  coverage_mean  coverage_std  acc_on_accepted_mean  acc_on_accepted_std  acc_on_flagged_mean  acc_on_flagged_std  folds_where_target_reached_mean  folds_where_target_reached_std
+    binary flag_lowest_20pct            0.9364           0.0039         0.8067        0.0021                0.9740               0.0020               0.7794              0.0210                              NaN                             NaN
+    binary   target_acc_0.95            0.9364           0.0039         0.8724        0.0293                0.9468               0.0034               0.8617              0.0236                              5.0                             0.0
+multiclass flag_lowest_20pct            0.8989           0.0055         0.8063        0.0078                0.9659               0.0050               0.6198              0.0358                              NaN                             NaN
+multiclass   target_acc_0.95            0.8989           0.0055         0.8039        0.0350                0.9530               0.0059               0.6759              0.0199                              5.0                             0.0
+
+Total time: 239s
