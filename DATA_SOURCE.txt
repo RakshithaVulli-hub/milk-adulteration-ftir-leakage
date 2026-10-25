@@ -1,0 +1,14 @@
+Dataset: 13040_2019_200_MOESM2_ESM.csv (Additional file 2 of the article below)
+
+Source:  H. A. Neto, W. L. F. Tavares, D. C. S. Z. Ribeiro, R. C. de Oliveira Alves,
+         L. M. Fonseca and S. V. A. Campos, "On the utilization of deep and ensemble
+         learning to detect milk adulteration," BioData Mining, vol. 12, Art. no. 13, 2019.
+DOI:     https://doi.org/10.1186/s13040-019-0200-5
+
+Licence: Creative Commons Attribution 4.0 International
+         (http://creativecommons.org/licenses/by/4.0/).
+         The article also states that the CC0 public domain dedication
+         (http://creativecommons.org/publicdomain/zero/1.0/) applies to the data made
+         available in the article, unless otherwise stated.
+
+This file is shared unmodified. Please credit the original authors when reusing it.
