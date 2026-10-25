@@ -1,0 +1,149 @@
+Run started: 2026-10-24 21:40:28
+Python 3.14.2 | sklearn 1.9.1 | numpy 2.5.4 | pandas 3.1.0 | Windows-11-10.0.26200-SP0
+Seed = 2
+Samples: 969, spectral features: 518
+Missing values in spectra: 0
+Exact duplicate spectra: 0
+Class counts:
+Ingredient
+raw             499
+formaldehyde    105
+sucrose          98
+bicarbonate      97
+peroxide         89
+starch           81
+Largest measurement dates (possible batch effect):
+Date
+31/8/2018    175
+3/9/2018      31
+19/9/2016     23
+
+=== Protocol A (random stratified 70:15:15) | task = multiclass ===
+Split sizes: train=678, val=145, test=146
+LEAKAGE INDICATOR: 82.9% of test samples share a measurement date with at least one training sample.
+Baseline trained in 0.9s
+Tuning Random Forest on validation set:
+  RF n_estimators=200 max_depth=None -> val macro-F1=0.7648
+  RF n_estimators=200 max_depth=20 -> val macro-F1=0.7648
+  RF n_estimators=500 max_depth=None -> val macro-F1=0.7536
+  RF n_estimators=500 max_depth=20 -> val macro-F1=0.7536
+  Selected RF params (n_estimators, max_depth) = (200, None)
+RF tuned + trained in 3.4s
+Gradient Boosting trained in 48.7s
+
+--- Baseline: Logistic Regression (TEST) ---
+              precision    recall  f1-score   support
+
+ bicarbonate       1.00      1.00      1.00        15
+formaldehyde       0.88      0.94      0.91        16
+    peroxide       0.85      0.85      0.85        13
+         raw       0.97      0.99      0.98        75
+      starch       1.00      0.83      0.91        12
+     sucrose       1.00      1.00      1.00        15
+
+    accuracy                           0.96       146
+   macro avg       0.95      0.93      0.94       146
+weighted avg       0.96      0.96      0.96       146
+
+
+--- Proposed: Random Forest (TEST) ---
+              precision    recall  f1-score   support
+
+ bicarbonate       0.93      0.87      0.90        15
+formaldehyde       0.36      0.62      0.45        16
+    peroxide       0.67      0.62      0.64        13
+         raw       0.94      0.89      0.92        75
+      starch       0.75      0.50      0.60        12
+     sucrose       1.00      0.87      0.93        15
+
+    accuracy                           0.80       146
+   macro avg       0.77      0.73      0.74       146
+weighted avg       0.84      0.80      0.82       146
+
+
+--- Gradient Boosting (TEST) ---
+              precision    recall  f1-score   support
+
+ bicarbonate       0.82      0.93      0.88        15
+formaldehyde       0.57      0.50      0.53        16
+    peroxide       0.88      0.54      0.67        13
+         raw       0.84      0.97      0.90        75
+      starch       1.00      0.58      0.74        12
+     sucrose       1.00      0.87      0.93        15
+
+    accuracy                           0.84       146
+   macro avg       0.85      0.73      0.77       146
+weighted avg       0.84      0.84      0.83       146
+
+
+Confidence extension: threshold chosen on validation set (val accuracy >= 0.95) = 0.5
+  Test coverage (auto-decided) = 75.3%; test accuracy on those = 0.9364; flagged for lab test = 24.7%
+
+=== Protocol B (date-grouped 5-fold CV, pooled predictions) | task = multiclass ===
+  fold 0: train=695, test=274, classes in test=['bicarbonate', 'formaldehyde', 'peroxide', 'raw', 'sucrose']
+  fold 1: train=798, test=171, classes in test=['bicarbonate', 'formaldehyde', 'peroxide', 'raw', 'starch', 'sucrose']
+  fold 2: train=795, test=174, classes in test=['bicarbonate', 'formaldehyde', 'peroxide', 'raw', 'starch', 'sucrose']
+  fold 3: train=795, test=174, classes in test=['bicarbonate', 'formaldehyde', 'peroxide', 'raw', 'starch', 'sucrose']
+  fold 4: train=793, test=176, classes in test=['bicarbonate', 'formaldehyde', 'peroxide', 'raw', 'starch', 'sucrose']
+  Baseline: Logistic Regression: acc=0.8927, macro-F1=0.8605
+  Proposed: Random Forest: acc=0.7214, macro-F1=0.6348
+  Gradient Boosting: acc=0.7657, macro-F1=0.6668
+
+=== Protocol A (random stratified 70:15:15) | task = binary ===
+Split sizes: train=678, val=145, test=146
+LEAKAGE INDICATOR: 79.5% of test samples share a measurement date with at least one training sample.
+Baseline trained in 0.1s
+Tuning Random Forest on validation set:
+  RF n_estimators=200 max_depth=None -> val macro-F1=0.9170
+  RF n_estimators=200 max_depth=20 -> val macro-F1=0.9170
+  RF n_estimators=500 max_depth=None -> val macro-F1=0.9170
+  RF n_estimators=500 max_depth=20 -> val macro-F1=0.9170
+  Selected RF params (n_estimators, max_depth) = (200, None)
+RF tuned + trained in 3.0s
+Gradient Boosting trained in 50.7s
+
+--- Baseline: Logistic Regression (TEST) ---
+              precision    recall  f1-score   support
+
+ adulterated       0.99      0.99      0.99        71
+         raw       0.99      0.99      0.99        75
+
+    accuracy                           0.99       146
+   macro avg       0.99      0.99      0.99       146
+weighted avg       0.99      0.99      0.99       146
+
+
+--- Proposed: Random Forest (TEST) ---
+              precision    recall  f1-score   support
+
+ adulterated       0.94      0.92      0.93        71
+         raw       0.92      0.95      0.93        75
+
+    accuracy                           0.93       146
+   macro avg       0.93      0.93      0.93       146
+weighted avg       0.93      0.93      0.93       146
+
+
+--- Gradient Boosting (TEST) ---
+              precision    recall  f1-score   support
+
+ adulterated       0.94      0.89      0.91        71
+         raw       0.90      0.95      0.92        75
+
+    accuracy                           0.92       146
+   macro avg       0.92      0.92      0.92       146
+weighted avg       0.92      0.92      0.92       146
+
+
+Confidence extension: threshold chosen on validation set (val accuracy >= 0.95) = 0.6
+  Test coverage (auto-decided) = 93.8%; test accuracy on those = 0.9416; flagged for lab test = 6.2%
+
+=== Protocol B (date-grouped 5-fold CV, pooled predictions) | task = binary ===
+  fold 0: train=695, test=274, classes in test=[np.str_('adulterated'), np.str_('raw')]
+  fold 1: train=798, test=171, classes in test=[np.str_('adulterated'), np.str_('raw')]
+  fold 2: train=795, test=174, classes in test=[np.str_('adulterated'), np.str_('raw')]
+  fold 3: train=792, test=177, classes in test=[np.str_('adulterated'), np.str_('raw')]
+  fold 4: train=796, test=173, classes in test=[np.str_('adulterated'), np.str_('raw')]
+  Baseline: Logistic Regression: acc=0.9381, macro-F1=0.9377
+  Proposed: Random Forest: acc=0.7822, macro-F1=0.7766
+  Gradient Boosting: acc=0.8008, macro-F1=0.7963

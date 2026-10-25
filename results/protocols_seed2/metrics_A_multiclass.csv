@@ -1,0 +1,4 @@
+Model,Accuracy,Precision (macro),Recall (macro),F1 (macro)
+Baseline: Logistic Regression,0.9589,0.9504,0.9339,0.9407
+Proposed: Random Forest,0.8014,0.7743,0.7278,0.7396
+Gradient Boosting,0.8356,0.8515,0.7325,0.7736
