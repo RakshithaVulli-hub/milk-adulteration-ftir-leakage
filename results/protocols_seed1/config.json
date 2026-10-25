@@ -1,0 +1,6 @@
+{
+  "csv": "13040_2019_200_MOESM2_ESM.csv",
+  "out": "results_seed1",
+  "seed": 1,
+  "target_acc": 0.95
+}
