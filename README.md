@@ -75,7 +75,7 @@ The commands above describe the scripts' intended outputs. **The original Exp 1â
 
 ## AI assistance
 
-The paper and project documentation state that Claude (Anthropic) assisted with code writing/debugging, experiment suggestions, and drafting. Keep this declaration only if it accurately reflects the work and review performed by the authors. The authors should personally verify the final code, results, citations, and paper wording before submission.
+The paper and project documentation state that Claude (Anthropic) assisted with code writing/debugging, experiment suggestions, and drafting. The authors personally verify the final code, results, citations, and paper wording before submission.
 
 ## Citation
 
